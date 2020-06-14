@@ -6,25 +6,28 @@ using System.Threading.Tasks;
 
 namespace ByteBank
 {
-    class SaldoInsuficienteException : OperacaoFinanceiraException
+    public class SaldoInsuficienteException : OperacaoFinanceiraException
     {
         public double Saldo { get; }
-        public double ValorRetirado { get; }
-        public SaldoInsuficienteException()
-            {
-            }
+        public double ValorSaque { get; }
 
-        public SaldoInsuficienteException(double saldo, double valorRetirado)
-            : this ("Tentativa de retirada de um valor de " + valorRetirado + " em uma conta com o saldo igual a " + saldo)
+        public SaldoInsuficienteException()
+        {
+
+        }
+
+        public SaldoInsuficienteException(double saldo, double valorSaque)
+            : this("Tentativa de saque do valor de " + valorSaque + " em uma conta com saldo de " + saldo)
         {
             Saldo = saldo;
-            ValorRetirado = valorRetirado;
-
+            ValorSaque = valorSaque;
         }
-        public SaldoInsuficienteException(string mensagem) : base (mensagem)
+
+        public SaldoInsuficienteException(string mensagem)
+            : base(mensagem)
         {
-
         }
+
         public SaldoInsuficienteException(string mensagem, Exception excecaoInterna)
             : base(mensagem, excecaoInterna)
         {

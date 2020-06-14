@@ -6,22 +6,23 @@ using System.Threading.Tasks;
 
 namespace ByteBank
 {
-    class OperacaoFinanceiraException : Exception
+    public class OperacaoFinanceiraException : Exception
     {
         public OperacaoFinanceiraException()
         {
 
         }
-        public OperacaoFinanceiraException(string mensagem) 
+
+        public OperacaoFinanceiraException(string mensagem)
             : base(mensagem)
         {
 
         }
-        public OperacaoFinanceiraException(string mensagem,Exception excecaoInterna)
+
+        public OperacaoFinanceiraException(string mensagem, Exception excecaoInterna)
             : base(mensagem, excecaoInterna)
         {
 
         }
-
     }
 }

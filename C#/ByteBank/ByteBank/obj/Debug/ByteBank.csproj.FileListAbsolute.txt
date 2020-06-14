@@ -1,7 +1,0 @@
-C:\Alura\Formação C#\#4 - ByteBank\ByteBank\bin\Debug\ByteBank.exe.config
-C:\Alura\Formação C#\#4 - ByteBank\ByteBank\bin\Debug\ByteBank.exe
-C:\Alura\Formação C#\#4 - ByteBank\ByteBank\bin\Debug\ByteBank.pdb
-C:\Alura\Formação C#\#4 - ByteBank\ByteBank\obj\Debug\ByteBank.csprojAssemblyReference.cache
-C:\Alura\Formação C#\#4 - ByteBank\ByteBank\obj\Debug\ByteBank.exe
-C:\Alura\Formação C#\#4 - ByteBank\ByteBank\obj\Debug\ByteBank.pdb
-C:\Alura\Formação C#\#4 - ByteBank\ByteBank\obj\Debug\ByteBank.csproj.CoreCompileInputs.cache

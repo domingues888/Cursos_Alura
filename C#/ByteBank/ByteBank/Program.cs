@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,77 +13,96 @@ namespace ByteBank
         {
             try
             {
-                ContaCorrente conta = new ContaCorrente(1, 10);
-                ContaCorrente conta2 = new ContaCorrente(1, 11);
-                conta.Depositar(500);
-                Console.WriteLine("Saldo da conta 1: "+ conta.Saldo);
-                Console.WriteLine("Saldo da conta 2: " + conta2.Saldo);
-                conta.Transferir(1000,conta2);
-                Console.WriteLine("Saldo da conta 1: " + conta.Saldo);
-                Console.WriteLine("Saldo da conta 2: " + conta2.Saldo);
+                CarregarContas();
             }
-            catch(OperacaoFinanceiraException e)
+            catch(Exception)
+            {
+                Console.WriteLine("CATCH NO METODO MAIN");
+            }
+
+            Console.WriteLine("Execução finalizada. Tecle enter para sair");
+            Console.ReadLine();
+        }
+
+        private static void CarregarContas()
+        {
+            using (LeitorDeArquivo leitor = new LeitorDeArquivo("teste.txt"))
+            {
+                leitor.LerProximaLinha();
+            }
+
+
+
+            // ---------------------------------------------
+
+            //LeitorDeArquivo leitor = null;
+            //try
+            //{
+            //    leitor = new LeitorDeArquivo("contasl.txt");
+
+            //    leitor.LerProximaLinha();
+            //    leitor.LerProximaLinha();
+            //    leitor.LerProximaLinha();
+            //}
+            //finally
+            //{
+            //    Console.WriteLine("Executando o finally");
+            //    if(leitor != null)
+            //    {
+            //        leitor.Fechar();
+            //    }
+            //}
+        }
+
+        private static void TestaInnerException()
+        {
+            try
+            {
+                ContaCorrente conta1 = new ContaCorrente(4564, 789684);
+                ContaCorrente conta2 = new ContaCorrente(7891, 456794);
+
+                // conta1.Transferir(10000, conta2);
+                conta1.Sacar(10000);
+            }
+            catch (OperacaoFinanceiraException e)
             {
                 Console.WriteLine(e.Message);
                 Console.WriteLine(e.StackTrace);
 
-                //Console.WriteLine("-------------- INNER EXCEPTION (Exceção Interna) -------------");
-                //Console.WriteLine(e.InnerException.Message);
-                //Console.WriteLine(e.InnerException.StackTrace);
+                // Console.WriteLine("Informações da INNER EXCEPTION (exceção interna):");
+
             }
-            //catch (SaldoInsuficienteException e)
-            //{
-            //    Console.WriteLine(e.StackTrace);
-            //    Console.WriteLine(e.Message);
-            //    Console.WriteLine("Ocorreu exceção de Saldo Insuficente");
-            //}
-            //catch (ArgumentException e)
-            //{
-            //    Console.WriteLine("Ocorreu exceção de Argumento");
-            //    Console.WriteLine("Argumento com Problema:" + e.ParamName);
-            //    Console.WriteLine(e.Message);
-            //}
-
-
-            //try
-            //{
-            //    Metodo();
-            //}
-            //catch (DivideByZeroException e)
-            //{
-            //    Console.WriteLine("Não é possível divisão por zero!");
-            //}
-            //catch(Exception e)
-            //{
-            //    Console.WriteLine(e.Message);
-            //    Console.WriteLine(e.StackTrace);
-            //}
-
-            //Console.WriteLine(ContaCorrente.TaxaOperacao);
-            Console.ReadLine();
         }
 
-        static void Metodo()
+        // Teste com a cadeia de chamada:
+        // Metodo -> TestaDivisao -> Dividir
+        private static void Metodo()
         {
             TestaDivisao(0);
         }
 
-        static void TestaDivisao(int divisor)
+        private static void TestaDivisao(int divisor)
         {
-            Dividir(10, divisor);
+            int resultado = Dividir(10, divisor);
+            Console.WriteLine("Resultado da divisão de 10 por " + divisor + " é " + resultado);
         }
-        static int Dividir(int numero, int divisor)
+
+        private static int Dividir(int numero, int divisor)
         {
             try
             {
                 return numero / divisor;
             }
-            catch (DivideByZeroException)
+            catch (DivideByZeroException )
             {
-                Console.WriteLine("Valores no momento da divisão: Numero ->" + numero + " e Divisor ->" + divisor);
+                Console.WriteLine("Exceção com numero=" + numero + " e divisor=" + divisor);
                 throw;
+                Console.WriteLine("Código depois do throw");
             }
-            
         }
+
+        // numero = 1
+        // divisor = 2;
+
     }
 }
